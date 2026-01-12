@@ -48,8 +48,13 @@ export class DoubanService {
         params: params,
       });
       if (response.data && response.data.subjects) {
+        // 替换图片地址中的 img3.doubanio.com 为 img9.doubanio.com
+        const modifiedSubjects = response.data.subjects.map((subject: DoubanSubject) => ({
+          ...subject,
+          cover: subject.cover.replace('img3.doubanio.com', 'img9.doubanio.com')
+        }));
         return {
-          data: response.data.subjects,
+          data: modifiedSubjects,
         };
       } else {
         return {
